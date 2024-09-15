@@ -115,9 +115,5 @@ def imagemodelclassify():
 
         return jsonify({'message': 'File successfully uploaded and classified', 'predicted_class': predicted_class_name, 'decomposition_time': responsearr[0], 'environmental_harm': responsearr[1], 'resource_use': responsearr[2], 'recycling_potential': responsearr[3], 'wildlife_impact': responsearr[4]}), 200
 
-@app.route("/trash-information", methods=['POST'])
-def fetchtrashinformation():
-    
-
 if __name__ == "__main__":
     app.run(debug=True, port=5000, host='0.0.0.0')
