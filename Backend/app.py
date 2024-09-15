@@ -4,6 +4,7 @@ from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.preprocessing import image
 import numpy as np
 import os
+from PIL import Image
 
 # Load the trained model
 model = load_model('transfer_resnet50_model.keras')
@@ -39,6 +40,35 @@ def imagemodelclassify():
     if file:
         filepath = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(filepath)
+
+        # Open the original image
+        img = Image.open("uploads/photo.jpg")
+
+        # Get original dimensions
+        original_width, original_height = img.size
+
+        # Desired aspect ratio
+        desired_aspect_ratio = 512 / 384  # 4:3 = 1.33
+
+        # Calculate the new width based on the original height
+        new_width = int(original_height * desired_aspect_ratio)
+
+
+        # Calculate the crop box to crop the sides (center-crop lengthwise)
+        left = (original_width - new_width) // 2
+        upper = 0
+        right = left + new_width
+        lower = original_height
+
+        # Crop the image to the calculated box
+        cropped_img = img.crop((left, upper, right, lower))
+
+        # Downscale the cropped image to 512x384
+        downscaled_img = cropped_img.resize((512, 384), Image.ANTIALIAS)
+
+        # Save the final image
+        downscaled_img.save("uploads/photo.jpg")
+
 
         # Function to load and preprocess an image
         def prepare_image(img_path, target_size=(384, 384)):
