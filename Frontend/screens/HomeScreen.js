@@ -1,11 +1,13 @@
+import React, { useState } from 'react';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
   const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [camera, setCamera] = useState(null);
+  const navigation = useNavigation(); // Hook for navigation
 
   if (!permission) {
     // Camera permissions are still loading.
@@ -32,7 +34,12 @@ export default function App() {
     if (camera) {
       const photo = await camera.takePictureAsync({ base64: true });
       console.log(photo.uri); // Photo URI for local storage reference
-      await uploadImage(photo);
+      const result = await uploadImage(photo);
+
+      if (result) {
+        // Navigate to ResultScreen with the API response
+        navigation.navigate('ResultScreen', { result });
+      }
     }
   }
 
@@ -45,28 +52,29 @@ export default function App() {
         name: 'photo.jpg',
         type: 'image/jpeg',
       });
-  
-      const response = await fetch('http://10.0.0.90:5000/upload', { // Use your local IP address here
+
+      const response = await fetch('http://10.0.0.90:5000/classification-image-model', {
         method: 'POST',
         body: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       if (response.ok) {
         const responseData = await response.json();
-        Alert.alert('Success', 'Image uploaded successfully');
         console.log(responseData); // API response data
+        return responseData;
       } else {
         throw new Error('Image upload failed');
       }
     } catch (error) {
       console.error(error);
       Alert.alert('Error', 'Image upload failed');
+      return null;
     }
   }
-  
+
   return (
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={(ref) => setCamera(ref)}>
@@ -103,9 +111,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     width: 150, // Button width for consistency
-  },
-  flipButton: {
-    marginLeft: 20, // Adjust margin between buttons if needed
   },
   text: {
     fontSize: 18,

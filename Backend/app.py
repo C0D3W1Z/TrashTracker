@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import google.generativeai as genai
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet50 import preprocess_input
 from tensorflow.keras.preprocessing import image
@@ -8,6 +9,10 @@ from PIL import Image
 
 # Load the trained model
 model = load_model('transfer_resnet50_model.keras')
+
+genai.configure(api_key=os.environ["API_KEY"])
+geminimodel = genai.GenerativeModel("gemini-1.5-flash")
+
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -64,7 +69,7 @@ def imagemodelclassify():
         cropped_img = img.crop((left, upper, right, lower))
 
         # Downscale the cropped image to 512x384
-        downscaled_img = cropped_img.resize((512, 384), Image.ANTIALIAS)
+        downscaled_img = cropped_img.resize((512, 384), Image.Resampling.LANCZOS)
 
         # Save the final image
         downscaled_img.save("uploads/photo.jpg")
@@ -100,7 +105,15 @@ def imagemodelclassify():
 
         print(f"Predicted class: {predicted_class_name}")
 
-        return jsonify({'message': 'File successfully uploaded and classified', 'predicted_class': predicted_class_name}), 200
+        prompt = f"Given a piece of trash made out of material: {predicted_class_name}, return the decomposition time(years), environmental harm(number from 1 - 10), resource use(number from 1 - 10), recycling potential(number from 1 - 10), and impact on wildlife(number from 1 - 10). You function like an api and your response should ONLY include these values in the order they were given delimitied by commas. Nothing else."
+
+        response = geminimodel.generate_content(prompt)
+
+        print(response.text)
+        
+        responsearr = response.text.split(",")
+
+        return jsonify({'message': 'File successfully uploaded and classified', 'predicted_class': predicted_class_name, 'decomposition_time': responsearr[0], 'environmental_harm': responsearr[1], 'resource_use': responsearr[2], 'recycling_potential': responsearr[3], 'wildlife_impact': responsearr[4]}), 200
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000, host='0.0.0.0')
