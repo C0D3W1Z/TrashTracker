@@ -102,13 +102,13 @@ const Welcome = ({ navigation }) => {
                             color: COLORS.white,
                             marginVertical: 4,
                             top: 10
-                        }}>Elevate every aspect of your life</Text>
+                        }}>Effectively manage your trash</Text>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.white,
                             marginVertical: 4,
                             top: 10
-                        }}>with ElevateAI</Text>
+                        }}>with TrashTracker</Text>
                     </View>
 
                     <Button

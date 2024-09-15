@@ -3,12 +3,12 @@ import "firebase/compat/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDULUML3vEgR1scCfjI37YtWy4aQKaY2U0",
-  authDomain: "elevateai.firebaseapp.com",
-  projectId: "elevateai",
-  storageBucket: "elevateai.appspot.com",
-  messagingSenderId: "524387787154",
-  appId: "1:524387787154:web:842edef63a0f000898a14b"
+  apiKey: "AIzaSyCPQwzYxU7QaKeuChvqwm66OuI4Kmeyx1o",
+  authDomain: "trashtracker-fd0aa.firebaseapp.com",
+  projectId: "trashtracker-fd0aa",
+  storageBucket: "trashtracker-fd0aa.appspot.com",
+  messagingSenderId: "267073279101",
+  appId: "1:267073279101:web:36b753bc5735a4877d4d14"
 };
 
 // Initialize Firebase

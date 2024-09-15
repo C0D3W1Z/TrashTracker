@@ -52,7 +52,7 @@ const SignupScreen = () => {
                     <Text style={{
                         fontSize: 16,
                         color: COLORS.black
-                    }}>Elevate your personal life now!</Text>
+                    }}>Effectively manage your trash with TrashTracker!</Text>
                 </View>
 
                 <View style={{ marginBottom: 12 }}>
