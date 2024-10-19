@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import COLORS from '../constants/colors'
+import COLORS from '../constants/colors';
 
 export default function ResultScreen({ route, navigation }) {
   const { result } = route.params; // Get the result from navigation params
@@ -16,7 +16,7 @@ export default function ResultScreen({ route, navigation }) {
       <Text style={styles.result}>Impact on Wildlife: {result.wildlife_impact}</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MapsScreen')}
+        onPress={() => navigation.navigate('MapsScreen', { result })} // Pass the result to MapScreen
       >
         <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>

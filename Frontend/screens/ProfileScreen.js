@@ -1,9 +1,30 @@
-// screens/HomeScreen.js
+// screens/HomeScreen.j
 import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import COLORS from '../constants/colors';
 import Tabs from '../components/Tabs';
+import { collection, addDoc } from "firebase/firestore";
+import { auth } from '../firebase';
+// import { db } from '../firebase';
+
+// console.log("____");
+// console.log(db);
+// console.log("____");
+ 
+// async function fries() {
+// try {
+//     const docRef = await addDoc(collection(db, "users"), {
+//       first: "Ada",
+//       last: "Lovelace",
+//     });
+//     console.log("Document written with ID: ", docRef.id);
+//   } catch (e) {
+//     console.error("Error adding document: ", e);
+//   }
+// }
+
+// fries();
 
 const ProfileScreen = () => {
     return (

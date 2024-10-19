@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { CameraView, useCameraPermissions } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera'; // Updated import
 import { Button, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
-  const [facing, setFacing] = useState('back');
-  const [permission, requestPermission] = useCameraPermissions();
+  const [facing, setFacing] = useState('back'); // Updated camera facing logic
+  const [permission, requestPermission] = useCameraPermissions(); // Camera permission hook
   const [camera, setCamera] = useState(null);
   const navigation = useNavigation(); // Hook for navigation
 
+  // Check for permission status
   if (!permission) {
-    // Camera permissions are still loading.
-    return <View />;
+    return <View />; // Permissions still loading
   }
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet.
+    // Camera permissions not granted yet
     return (
       <View style={styles.container}>
         <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
@@ -29,7 +29,7 @@ export default function App() {
     setFacing((current) => (current === 'back' ? 'front' : 'back'));
   }
 
-  // Function to capture a photo and send it to the API
+  // Function to capture a photo
   async function takePhoto() {
     if (camera) {
       const photo = await camera.takePictureAsync({ base64: true });
@@ -53,7 +53,7 @@ export default function App() {
         type: 'image/jpeg',
       });
 
-      const response = await fetch('http://10.0.0.90:5000/classification-image-model', {
+      const response = await fetch('http://192.168.1.59:5000/classification-image-model', {
         method: 'POST',
         body: formData,
         headers: {
@@ -77,11 +77,17 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      {/* Replacing Camera with CameraView */}
       <CameraView style={styles.camera} facing={facing} ref={(ref) => setCamera(ref)}>
         <View style={styles.buttonContainer}>
           {/* Take Photo Button */}
           <TouchableOpacity style={styles.button} onPress={takePhoto}>
             <Text style={styles.text}>Take Photo</Text>
+          </TouchableOpacity>
+          
+          {/* Flip Camera Button */}
+          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+            <Text style={styles.text}>Flip Camera</Text>
           </TouchableOpacity>
         </View>
       </CameraView>
