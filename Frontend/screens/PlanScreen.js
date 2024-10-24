@@ -4,7 +4,7 @@ import Markdown from 'react-native-markdown-display';
 import COLORS from '../constants/colors';
 
 // The API key - In production, this should be stored securely
-const GEMINI_API_KEY = 'AIzaSyBbuHpm4-wmUUDWzc0gaifrwCXk7b-KcYc';
+const GEMINI_API_KEY = 'ENTER_YOUR_KEY';
 
 export default function PlanScreen({ route, navigation }) {
   const { result } = route.params; // Get the result data from navigation params

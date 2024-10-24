@@ -53,7 +53,7 @@ export default function App() {
         type: 'image/jpeg',
       });
 
-      const response = await fetch('http://192.168.1.43:5000/classification-image-model', {
+      const response = await fetch('http://192.168.1.59:5000/classification-image-model', {
         method: 'POST',
         body: formData,
         headers: {
