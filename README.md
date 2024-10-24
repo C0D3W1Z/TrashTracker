@@ -1,3 +1,5 @@
+# TrashTracker
+
 Our app, TrashTracker, addresses the pressing issue of improper waste disposal, which significantly impacts recycling efforts and contributes to environmental pollution. TrashTracker is designed to guide users in identifying, categorizing, and properly disposing of waste, ensuring that recyclable materials are correctly sorted and diverted from landfills.
 
 The process begins with users accessing the scanning page, where they can take a photo of the waste they want to dispose of. Once the image is captured, our app leverages an Imbalanced Garbage Classification machine learning model to identify the type of waste from the image. This classification is crucial for determining the next steps in the waste management process.
