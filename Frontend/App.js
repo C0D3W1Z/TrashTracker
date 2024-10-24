@@ -7,6 +7,7 @@ import SignupScreen from './screens/SignupScreen';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import ResultScreen from './screens/ResultScreen';
+import PlanScreen from './screens/PlanScreen';
 import MapsScreen from './screens/MapsScreen';
 import Tabs from './components/Tabs';
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Tabs} />
         <Stack.Screen options={{ headerShown: false }} name="ResultScreen" component={ResultScreen}/>
+        <Stack.Screen options={{ headerShown: false }} name="PlanScreen" component={PlanScreen}/>
         <Stack.Screen options={{ headerShown: false }} name="MapsScreen" component={MapsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
